@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-02-17T22:40:00Z",
+  "updated_by": "auryn-tasks",
+  "tasks": [
+    {
+      "id": "task_1739806080000",
+      "title": "Review CapitalSphere IT section of FINRA-compliant data policy (Ticket #4680) - confirm implementability from a tech perspective",
+      "priority": "high",
+      "category": "Client Work",
+      "due_date": "2026-02-17",
+      "created": "2026-02-17",
+      "completed": false,
+      "completed_date": null
+    },
+    {
+      "id": "task_1739750400000",
+      "title": "Check R.A. Burch Box account mailbox for reply from Box Enterprise regarding their vendor CRM",
+      "priority": "high",
+      "category": "Client Work",
+      "due_date": null,
+      "created": "2026-02-16",
+      "completed": false,
+      "completed_date": null
+    },
+    {
+      "id": "task_1739836800000",
+      "title": "Bi-monthly individual client dashboard refresh -- run client-dashboard for each active CMMC L2 client (next: Apr 2026)",
+      "priority": "medium",
+      "category": "Client Work",
+      "due_date": "2026-04-01",
+      "created": "2026-02-17",
+      "completed": false,
+      "completed_date": null
+    }
+  ]
+}
