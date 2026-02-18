@@ -47,7 +47,7 @@ app.post('/api/tasks', (req, res) => {
       priority: priority || 'medium',
       category: category || 'Admin',
       due_date: due_date || null,
-      created: new Date().toISOString().split('T')[0],
+      created: new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo' }).format(new Date()),
       completed: false,
       completed_date: null
     };
@@ -107,8 +107,10 @@ app.delete('/api/tasks/:id', (req, res) => {
 
 // GET /api/calendar
 app.get('/api/calendar', async (req, res) => {
-  const year  = parseInt(req.query.year)  || new Date().getFullYear();
-  const month = parseInt(req.query.month) || new Date().getMonth() + 1;
+  // Default to current month in JST (Asia/Tokyo)
+  const jstNow = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit' }).format(new Date()).split('-');
+  const year  = parseInt(req.query.year)  || parseInt(jstNow[0]);
+  const month = parseInt(req.query.month) || parseInt(jstNow[1]);
 
   // Get tasks with due dates (incomplete only)
   const taskData = readTasks();

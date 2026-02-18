@@ -9,9 +9,10 @@ let priorityFilter = 'all';
 let statusFilter   = 'active';
 let currentView    = 'tasks';
 
-// Calendar state
-let calYear  = new Date().getFullYear();
-let calMonth = new Date().getMonth() + 1; // 1–12
+// Calendar state — init from JST
+const _jstNow = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit' }).format(new Date()).split('-');
+let calYear  = parseInt(_jstNow[0]);
+let calMonth = parseInt(_jstNow[1]); // 1–12
 let calData  = { tasks: [], events: [] };
 
 // ─── Init ──────────────────────────────────
@@ -129,25 +130,25 @@ function registerSW() {
 }
 
 // ─── Date Helpers ───────────────────────────
-function localDateStr(date) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, '0');
-  const d = String(date.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
+// Always use JST (Asia/Tokyo) for date comparisons — Eric is in Japan
+const JST = 'Asia/Tokyo';
+
+function jstDateStr(date) {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: JST }).format(date);
 }
 
-function getToday() { return localDateStr(new Date()); }
+function getToday()   { return jstDateStr(new Date()); }
 
 function getTomorrow() {
   const d = new Date();
   d.setDate(d.getDate() + 1);
-  return localDateStr(d);
+  return jstDateStr(d);
 }
 
 function getWeekEnd() {
   const d = new Date();
   d.setDate(d.getDate() + 7);
-  return localDateStr(d);
+  return jstDateStr(d);
 }
 
 /**
