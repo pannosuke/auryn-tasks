@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-02-17T22:40:00Z",
+  "last_updated": "2026-02-18T00:31:12.544Z",
   "updated_by": "auryn-tasks",
   "tasks": [
     {
@@ -30,6 +30,16 @@
       "category": "Client Work",
       "due_date": "2026-04-01",
       "created": "2026-02-17",
+      "completed": false,
+      "completed_date": null
+    },
+    {
+      "id": "task_1771374672543",
+      "title": "Enter time notes for the Marlin/PCG CMMC Check-In meeting",
+      "priority": "medium",
+      "category": "Client Work",
+      "due_date": "2026-02-17",
+      "created": "2026-02-18",
       "completed": false,
       "completed_date": null
     }
