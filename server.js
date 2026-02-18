@@ -105,6 +105,43 @@ app.delete('/api/tasks/:id', (req, res) => {
   }
 });
 
+// GET /api/calendar
+app.get('/api/calendar', async (req, res) => {
+  const year  = parseInt(req.query.year)  || new Date().getFullYear();
+  const month = parseInt(req.query.month) || new Date().getMonth() + 1;
+
+  // Get tasks with due dates (incomplete only)
+  const taskData = readTasks();
+  const tasks = taskData.tasks.filter(t => t.due_date && !t.completed);
+
+  // Fetch Google Family Calendar events via Maton
+  const calId  = '01397450559fe52c9b3eb22b2b52c961f1f53a2e8b0fac36a8420f57bdf177e0@group.calendar.google.com';
+  const apiKey = process.env.MATON_API_KEY;
+
+  const startDate = new Date(year, month - 1, 1).toISOString();
+  const endDate   = new Date(year, month, 0, 23, 59, 59).toISOString();
+
+  let events = [];
+  try {
+    const url = `https://gateway.maton.ai/google-calendar/calendar/v3/calendars/${encodeURIComponent(calId)}/events?timeMin=${startDate}&timeMax=${endDate}&singleEvents=true&orderBy=startTime`;
+    const response = await fetch(url, {
+      headers: { 'Authorization': `Bearer ${apiKey}` }
+    });
+    const calData = await response.json();
+    events = (calData.items || []).map(e => ({
+      id:    e.id,
+      title: e.summary,
+      date:  e.start.date || e.start.dateTime?.split('T')[0],
+      time:  e.start.dateTime ? e.start.dateTime.split('T')[1]?.substring(0, 5) : null,
+      type:  'calendar'
+    }));
+  } catch (e) {
+    console.error('Calendar fetch error:', e.message);
+  }
+
+  res.json({ tasks, events });
+});
+
 // Catch-all: serve index.html for SPA (Express 5 wildcard syntax)
 app.get('/{*splat}', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

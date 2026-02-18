@@ -23,27 +23,57 @@
     <div class="stat"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total</div></div>
     <div class="stat"><div class="stat-num" id="statActive">0</div><div class="stat-label">Active</div></div>
     <div class="stat"><div class="stat-num" id="statOverdue">0</div><div class="stat-label">Overdue</div></div>
+    <div class="stat"><div class="stat-num" id="statToday">0</div><div class="stat-label">Due Today</div></div>
     <div class="stat"><div class="stat-num" id="statDone">0</div><div class="stat-label">Done</div></div>
   </div>
 
-  <!-- Filter Bar -->
-  <div class="filter-bar">
-    <div class="filter-group" id="priorityFilters">
-      <button class="pill active" data-priority="all">All</button>
-      <button class="pill high" data-priority="high">🔴 High</button>
-      <button class="pill medium" data-priority="medium">🟡 Medium</button>
-      <button class="pill low" data-priority="low">🟢 Low</button>
-    </div>
-    <div class="filter-sep"></div>
-    <div class="filter-group" id="statusFilters">
-      <button class="pill active" data-status="active">Active</button>
-      <button class="pill" data-status="completed">Completed</button>
-      <button class="pill" data-status="all">All</button>
-    </div>
+  <!-- Due Alert Bar -->
+  <div class="due-alert" id="dueAlert" style="display:none"></div>
+
+  <!-- View Toggle -->
+  <div class="view-toggle">
+    <button class="pill view-pill active" id="viewTasks" data-view="tasks">📋 Tasks</button>
+    <button class="pill view-pill" id="viewCalendar" data-view="calendar">📅 Calendar</button>
   </div>
 
-  <!-- Task List -->
-  <div class="task-list" id="taskList"></div>
+  <!-- Task View -->
+  <div id="taskView">
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div class="filter-group" id="priorityFilters">
+        <button class="pill active" data-priority="all">All</button>
+        <button class="pill high" data-priority="high">🔴 High</button>
+        <button class="pill medium" data-priority="medium">🟡 Medium</button>
+        <button class="pill low" data-priority="low">🟢 Low</button>
+      </div>
+      <div class="filter-sep"></div>
+      <div class="filter-group" id="statusFilters">
+        <button class="pill active" data-status="active">Active</button>
+        <button class="pill" data-status="completed">Completed</button>
+        <button class="pill" data-status="all">All</button>
+      </div>
+    </div>
+
+    <!-- Task List -->
+    <div class="task-list" id="taskList"></div>
+  </div>
+
+  <!-- Calendar View -->
+  <div id="calendarView" style="display:none">
+    <div class="calendar-header">
+      <button class="cal-nav-btn" id="calPrev">&#8249;</button>
+      <div class="calendar-month-title" id="calTitle">Loading…</div>
+      <button class="cal-nav-btn" id="calNext">&#8250;</button>
+    </div>
+    <div class="calendar-grid" id="calGrid"></div>
+  </div>
+</div>
+
+<!-- Calendar Popover -->
+<div class="cal-popover" id="calPopover">
+  <div class="cal-popover-date" id="calPopoverDate"></div>
+  <div class="cal-popover-body" id="calPopoverBody"></div>
+  <button class="cal-popover-close btn btn-sm btn-ghost" id="calPopoverClose">✕ Close</button>
 </div>
 
 <!-- Add Task Modal -->
